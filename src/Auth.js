@@ -11,14 +11,14 @@ class Auth extends Component {
         event.preventDefault();
 
         // call getToken with email, password, and type
-        const userData = await getToken(
+        const token = await getToken(
             {
                 email: this.state.email,
                 password: this.state.password,
             },
             this.props.type
         );
-        this.props.setLoggedIn(true);
+        this.props.setToken(token);
 
         // redirect to /todos
         this.props.history.push('/todos');

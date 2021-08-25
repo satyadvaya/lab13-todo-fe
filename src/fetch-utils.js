@@ -21,5 +21,5 @@ export async function getToken(loginInfo, type) {
     localStorage.setItem('TOKEN', data.token);
 
     // return the userid
-    return data.id;
+    return data.token;
 }

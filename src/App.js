@@ -12,9 +12,9 @@ class Begin extends Component {
 }
 
 class App extends Component {
-  state = { loggedIn: false };
-  setLoggedIn = (val) => {
-    this.setState({ loggedIn: val });
+  state = { token: localStorage.getItem('TOKEN') };
+  setToken = (val) => {
+      this.setState({ token: val });
   };
 
   render() {
@@ -25,7 +25,8 @@ class App extends Component {
           <NavLink to='/signup'>Sign Up</NavLink>
           <NavLink to='/signin'>Sign In</NavLink>
             <div>
-              APP LOGGED IN STATE: { this.state.loggedIn.toString() }
+                APP TOKEN:
+                { this.state.token && this.state.token.toString() }
             </div>
         </header>
         <section className='main'>
@@ -36,7 +37,7 @@ class App extends Component {
                 path='/signin'
                 render={ (routerProps) => (
                   <Auth
-                    setLoggedIn={this.setLoggedIn}
+                    setToken={this.setToken}
                     type='signin' {...routerProps}
                   />
                 )}
@@ -45,14 +46,17 @@ class App extends Component {
               <Route
                 path='/signup'
                 render={ (routerProps) => (
-                  <Auth type='signup' {...routerProps} />
+                  <Auth
+                    setToken={this.setToken}
+                    type="signup" {...routerProps}
+                  />
                 )}
               />
 
               <Route
                 path='/todos'
                 render={ (routerProps) =>
-                  this.state.loggedIn ? (
+                  this.state.token ? (
                     <ToDos {...routerProps} />
                   ) : (
                     <Redirect to='/signin' />
