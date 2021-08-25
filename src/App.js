@@ -23,12 +23,18 @@ class App extends Component {
         <section className='main'>
           <Switch>
             <Route exact path='/' component={Begin} />
-            <Route path='/signup'>
-              <Auth type='signup' />
-            </Route>
-            <Route path='/signin'>
-              <Auth type='signin' />
-            </Route>
+              <Route
+                path="/signup"
+                render={ (routerProps) => (
+                  <Auth type="signup" {...routerProps} />
+                )}
+              />
+              <Route
+                path="/signin"
+                render={ (routerProps) => (
+                  <Auth type="signin" {...routerProps} />
+                )}
+              />
           </Switch>
         </section>
       </BrowserRouter>

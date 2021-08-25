@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 
 class Auth extends Component {
     state = { email: '', password: '' };
-    getType = () => {
+    targetType = () => {
         return this.props.type === 'signin' ? 'Sign In' : 'Sign Up';
     };
 
     render() { 
         return (
             <>
-                <h1>{ this.getType() }</h1>
+                <h1>{ this.targetType() }</h1>
                 <form>
                     <div className='form-control'>
                         <label>Email: </label>
@@ -29,7 +29,7 @@ class Auth extends Component {
                             }}
                         />
                     </div>
-                    <button>{ this.getType() }</button>
+                    <button>{ this.targetType() }</button>
                 </form>
             </>
         );
