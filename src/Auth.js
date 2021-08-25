@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { getToken } from './fetch-utils.js';
 
 class Auth extends Component {
     state = { email: '', password: '' };
@@ -6,11 +7,28 @@ class Auth extends Component {
         return this.props.type === 'signin' ? 'Sign In' : 'Sign Up';
     };
 
+    handleSubmit = async (event) => {
+        event.preventDefault();
+
+        // call getToken with email, password, and type
+        const userData = await getToken(
+            {
+                email: this.state.email,
+                password: this.state.password,
+            },
+            this.props.type
+        );
+        this.props.setLoggedIn(true);
+
+        // redirect to /todos
+        this.props.history.push('/todos');
+    };
+
     render() { 
         return (
             <>
                 <h1>{ this.targetType() }</h1>
-                <form>
+                <form onSubmit={this.handleSubmit}>
                     <div className='form-control'>
                         <label>Email: </label>
                         <input

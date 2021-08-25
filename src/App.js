@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Switch, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, NavLink, Redirect } from 'react-router-dom';
 import './App.css';
 import Auth from './Auth.js';
+import ToDos from './ToDos.js';
 
 class Begin extends Component {
   // state = {  }
@@ -11,7 +12,11 @@ class Begin extends Component {
 }
 
 class App extends Component {
-  state = {  }
+  state = { loggedIn: false };
+  setLoggedIn = (val) => {
+    this.setState({ loggedIn: val });
+  };
+
   render() {
     return (
       <BrowserRouter>
@@ -19,21 +24,40 @@ class App extends Component {
           <NavLink to='/' exact>Begin</NavLink>
           <NavLink to='/signup'>Sign Up</NavLink>
           <NavLink to='/signin'>Sign In</NavLink>
+            <div>
+              APP LOGGED IN STATE: { this.state.loggedIn.toString() }
+            </div>
         </header>
         <section className='main'>
           <Switch>
             <Route exact path='/' component={Begin} />
+
               <Route
-                path="/signup"
+                path='/signin'
                 render={ (routerProps) => (
-                  <Auth type="signup" {...routerProps} />
+                  <Auth
+                    setLoggedIn={this.setLoggedIn}
+                    type='signin' {...routerProps}
+                  />
                 )}
               />
+
               <Route
-                path="/signin"
+                path='/signup'
                 render={ (routerProps) => (
-                  <Auth type="signin" {...routerProps} />
+                  <Auth type='signup' {...routerProps} />
                 )}
+              />
+
+              <Route
+                path='/todos'
+                render={ (routerProps) =>
+                  this.state.loggedIn ? (
+                    <ToDos {...routerProps} />
+                  ) : (
+                    <Redirect to='/signin' />
+                  )
+                }
               />
           </Switch>
         </section>
