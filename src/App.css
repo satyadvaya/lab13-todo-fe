@@ -39,6 +39,12 @@ label {
 }
 
 button {
+  margin-top: 15px;
   padding: 5px;
   background-color: paleturquoise;
+}
+
+.headerToken {
+      font-weight: bold;
+      margin-left: 20px;
 }

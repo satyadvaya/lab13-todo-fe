@@ -10,7 +10,7 @@ class Auth extends Component {
     handleSubmit = async (event) => {
         event.preventDefault();
 
-        // call getToken with email, password, and type
+        // call targetToken with email, password, and type
         const token = await getToken(
             {
                 email: this.state.email,

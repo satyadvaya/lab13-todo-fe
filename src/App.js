@@ -13,22 +13,31 @@ class Begin extends Component {
 
 class App extends Component {
   state = { token: localStorage.getItem('TOKEN') };
-  setToken = (val) => {
-      this.setState({ token: val });
+  setToken = (value) => {
+      this.setState({ token: value });
   };
 
   render() {
     return (
       <BrowserRouter>
+
         <header>
           <NavLink to='/' exact>Begin</NavLink>
-          <NavLink to='/signup'>Sign Up</NavLink>
-          <NavLink to='/signin'>Sign In</NavLink>
-            <div>
-                APP TOKEN:
+            {this.state.token && (
+              <NavLink to='/todos'>ToDo List</NavLink>
+            )}
+            {!this.state.token && (
+              <>
+                  <NavLink to='/signup'>Sign Up</NavLink>
+                  <NavLink to='/signin'>Sign In</NavLink>
+              </>
+            )}
+            <div className='headerToken'>
+                ISSUED TOKEN:
                 { this.state.token && this.state.token.toString() }
             </div>
         </header>
+
         <section className='main'>
           <Switch>
             <Route exact path='/' component={Begin} />
@@ -55,16 +64,19 @@ class App extends Component {
 
               <Route
                 path='/todos'
+                // if token issued then list ToDos, otherwise redirect to sign in
                 render={ (routerProps) =>
                   this.state.token ? (
-                    <ToDos {...routerProps} />
+                    <ToDos token={this.state.token} {...routerProps} />
                   ) : (
                     <Redirect to='/signin' />
                   )
                 }
               />
+
           </Switch>
         </section>
+
       </BrowserRouter>
     )
   }
