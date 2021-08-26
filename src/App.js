@@ -32,10 +32,10 @@ class App extends Component {
                   <NavLink to='/signin'>Sign In</NavLink>
               </>
             )}
-            <div className='headerToken'>
+            {/* <div className='headerToken'>
                 ISSUED TOKEN:
                 { this.state.token && this.state.token.toString() }
-            </div>
+            </div> */}
         </header>
 
         <section className='main'>

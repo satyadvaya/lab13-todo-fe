@@ -26,8 +26,8 @@ export async function getToken(loginInfo, type) {
 }
 
 export async function getTodos(token) {
-    const apiURL = `${URL}/api/todos`;
-    const resp = await fetch(apiURL, {
+    const apiGetURL = `${URL}/api/todos`;
+    const resp = await fetch(apiGetURL, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -41,9 +41,25 @@ export async function getTodos(token) {
 }
 
 export async function createTodo(token, todo) {
-    const apiURL = `${URL}/api/todos`;
-    const resp = await fetch(apiURL, {
+    const apiPostURL = `${URL}/api/todos`;
+    const resp = await fetch(apiPostURL, {
         method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token,
+        },
+        body: JSON.stringify(todo),
+    });
+
+    const data = await resp.json();
+
+    return data;
+}
+
+export async function updateTodo(token, todo) {
+    const apiPutURL = `${URL}/api/todos/${todo.id}`;
+    const resp = await fetch(apiPutURL, {
+        method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': token,

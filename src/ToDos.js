@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { createTodo, getTodos } from './fetch-utils.js';
+import { getTodos, createTodo, updateTodo } from './fetch-utils.js';
 import './ToDos.css';
 
 class ToDos extends Component {
@@ -28,6 +28,12 @@ class ToDos extends Component {
         }));
     };
 
+    handleCompleted = async (todo) => {
+        todo.completed = !todo.completed;
+        const data = await updateTodo(this.props.token, todo);
+        this.fetchTodos();
+    };
+
     // call the server /api/todos with the JWT from localStorage
     render() {
         return (
@@ -36,7 +42,11 @@ class ToDos extends Component {
                     <section className='todo-list'>
                         {this.state.todos.map( (todo) => (
                             <div className='todo-item' key={todo.id}>
-                                <input type='checkbox' checked={todo.completed} />
+                                <input 
+                                    type='checkbox' 
+                                    checked={todo.completed} 
+                                    onChange={ () => this.handleCompleted(todo) } 
+                                />
                                 <label>{todo.todo}</label>
                             </div>
                         ))}
