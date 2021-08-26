@@ -34,6 +34,24 @@ export async function getTodos(token) {
             'Authorization': token,
         },
     });
+
     const data = await resp.json();
+
+    return data;
+}
+
+export async function createTodo(token, todo) {
+    const apiURL = `${URL}/api/todos`;
+    const resp = await fetch(apiURL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token,
+        },
+        body: JSON.stringify(todo),
+    });
+
+    const data = await resp.json();
+
     return data;
 }

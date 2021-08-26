@@ -34,8 +34,9 @@ header {
 }
 
 label {
-    width: 85px;
+    width: 150px;
     display: inline-block;
+    margin-left: 10px;
 }
 
 button {

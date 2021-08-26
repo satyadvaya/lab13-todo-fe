@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { getTodos } from './fetch-utils.js';
+import { createTodo, getTodos } from './fetch-utils.js';
 import './ToDos.css';
 
 class ToDos extends Component {
-    state = { todos: [] };
+    state = { todos: [], newTodo: '' };
 
     componentDidMount = () => {
         this.fetchTodos();
@@ -14,19 +14,45 @@ class ToDos extends Component {
         const data = await getTodos(this.props.token);
         // set the todos in state
         this.setState({ todos: data });
-    };    
+    };
+
+    handleSubmit = async (event) => {
+        event.preventDefault();
+        const data = await createTodo(this.props.token, {
+            todo: this.state.newTodo,
+            completed: false
+        });
+        this.setState({ newTodo: '' });
+        this.setState( (prevState) => ({
+            todos: [...prevState.todos, data]
+        }));
+    };
 
     // call the server /api/todos with the JWT from localStorage
     render() {
         return (
             <>
                 <h1>User ToDo List</h1>
-                {this.state.todos.map((todo) => (
-                    <div className='todo-item' key={todo.id}>
-                        <input type='checkbox' checked={todo.completed} />
-                        <label>{todo.todo}</label>
-                    </div>
-                ))}
+                    <section className='todo-list'>
+                        {this.state.todos.map( (todo) => (
+                            <div className='todo-item' key={todo.id}>
+                                <input type='checkbox' checked={todo.completed} />
+                                <label>{todo.todo}</label>
+                            </div>
+                        ))}
+                    </section>
+                    <section className='new-todo'>
+                        <form onSubmit={this.handleSubmit}>
+                            <input
+                                value={this.state.newTodo}
+                                type='text'
+                                onChange={ (event) =>
+                                    this.setState({ newTodo: event.target.value })
+                                }
+                            />
+                            <button>Add ToDo</button>
+                        </form>
+                </section>
             </>
         );
     }
