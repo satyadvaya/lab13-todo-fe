@@ -24,7 +24,7 @@ class ToDos extends Component {
                 {this.state.todos.map((todo) => (
                     <div className='todo-item' key={todo.id}>
                         <input type='checkbox' checked={todo.completed} />
-                        <label>{todo.description}</label>
+                        <label>{todo.todo}</label>
                     </div>
                 ))}
             </>
