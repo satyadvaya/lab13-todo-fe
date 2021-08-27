@@ -1,5 +1,5 @@
-// put your ***backend*** localhost URL here ...
-const URL = 'http://localhost:7890';
+// put your ***backend*** localhost URL here at first, and then my deployed Heroku app at the end ...
+const URL = 'https://stark-hamlet-56268.herokuapp.com';
 
 export async function getToken(loginInfo, type) {
     // type is either 'signin' or 'signup'
