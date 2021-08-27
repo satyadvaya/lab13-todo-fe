@@ -11,6 +11,7 @@ a {
     font-weight: bold;
     color: lightcoral;
     text-decoration: none;
+    margin-left: 25px;
 }
 
 a.active {
@@ -34,17 +35,18 @@ header {
 }
 
 label {
-    width: 85px;
+    width: 90px;
     display: inline-block;
+    margin-left: 10px;
 }
 
 button {
-  margin-top: 15px;
+  margin-top: 5px;
   padding: 5px;
   background-color: paleturquoise;
 }
 
-.headerToken {
+/* .headerToken {
       font-weight: bold;
       margin-left: 20px;
-}
+} */
